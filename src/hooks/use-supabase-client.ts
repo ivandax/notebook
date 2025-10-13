@@ -1,14 +1,8 @@
+import type { Session } from '@supabase/supabase-js'
 import { useState, useEffect } from 'react'
-import { createClient, type Session } from '@supabase/supabase-js'
-const apiKey = import.meta.env.VITE_API_KEY
-const supabaseProjectId = import.meta.env.VITE_SUPABASE_PROJECT_ID
+import { supabase } from '../supabaseClient'
 
 export function useSupabaseClient() {
-    const supabase = createClient(
-        `https://${supabaseProjectId}.supabase.co`,
-        apiKey
-    )
-
     const [session, setSession] = useState<Session | null>(null)
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
@@ -25,5 +19,5 @@ export function useSupabaseClient() {
 
     console.log('Supabase session:', session)
 
-    return { session }
+    return { session, supabase }
 }
