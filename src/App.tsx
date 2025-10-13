@@ -1,7 +1,10 @@
 import './App.css'
 import { TopBar } from './components/topbar/topbar'
+import { useSupabaseClient } from './hooks/use-supabase-client'
 
 function App() {
+    useSupabaseClient()
+
     return (
         <div className="min-h-screen bg-gray-50">
             <TopBar />
