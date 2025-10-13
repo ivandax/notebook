@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { signUpNewUser } from '@/services/auth'
 import { Button } from '@/components/ui/button'
-import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { Input } from '@/components/ui/input'
 
@@ -9,7 +8,6 @@ export function SignUpEmail() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
-    const navigate = useNavigate()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -22,8 +20,9 @@ export function SignUpEmail() {
                 description: 'Error al crear el usuario',
             })
         } else {
-            toast('Cuenta creada con éxito')
-            setTimeout(() => navigate('/'), 2000)
+            toast('Cuenta creada con éxito', {
+                description: 'Revise su correo para verificar la cuenta',
+            })
         }
 
         setLoading(false)
