@@ -1,4 +1,4 @@
-import { supabase } from '@/supabaseClient'
+import { supabase } from '@/supabaseClient';
 
 export async function signUpNewUser(email: string, password: string) {
     const { data, error } = await supabase.auth.signUp({
@@ -7,14 +7,19 @@ export async function signUpNewUser(email: string, password: string) {
         options: {
             emailRedirectTo: 'http://localhost:5173/',
         },
-    })
-    return { data, error }
+    });
+    return { data, error };
 }
 
 export async function signInWithEmail(email: string, password: string) {
     const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
-    })
-    return { data, error }
+    });
+    return { data, error };
+}
+
+export async function signOut() {
+    const { error } = await supabase.auth.signOut();
+    return { error };
 }

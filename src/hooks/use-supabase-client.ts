@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import { supabase } from '../supabaseClient';
-import { setSession } from '@/state/sessionStore';
+import { setIsLoadingSession, setSession } from '@/state/sessionStore';
 
 export function useSupabaseClient() {
     useEffect(() => {
+        setIsLoadingSession(true);
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session);
+            setIsLoadingSession(false);
         });
         const {
             data: { subscription },

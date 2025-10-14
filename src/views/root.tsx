@@ -5,6 +5,7 @@ import { SignUp } from './signup'
 import { SignUpEmail } from './signup-email'
 import { SignInEmail } from './signin-email'
 import { SignIn } from './signin'
+import { Settings } from './settings'
 
 const Root: React.FC = () => {
     return (
@@ -15,6 +16,7 @@ const Root: React.FC = () => {
                 <Route path="/sign-in" element={<SignIn />} />
                 <Route path="/sign-up-email" element={<SignUpEmail />} />
                 <Route path="/sign-in-email" element={<SignInEmail />} />
+                <Route path="/settings" element={<Settings />} />
             </Routes>
         </BrowserRouter>
     )

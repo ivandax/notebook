@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
-import { Button } from '../ui/button'
-import { useSessionStore } from '@/state/sessionStore'
+import { Link } from 'react-router-dom';
+import { Button } from '../ui/button';
+import { useSessionStore } from '@/state/sessionStore';
 
 export function Sidebar() {
     const session = useSessionStore((state) => state.session);
@@ -23,14 +23,21 @@ export function Sidebar() {
                             </Link>
                         </>
                     ) : (
-                        <Link to="/">
-                            <Button variant="outline" className="w-full">
-                                Home
-                            </Button>
-                        </Link>
+                        <>
+                            <Link to="/">
+                                <Button variant="outline" className="w-full">
+                                    Inicio
+                                </Button>
+                            </Link>
+                            <Link to="/settings">
+                                <Button variant="outline" className="w-full">
+                                    Configuración
+                                </Button>
+                            </Link>
+                        </>
                     )}
                 </nav>
             </div>
         </aside>
-    )
+    );
 }
