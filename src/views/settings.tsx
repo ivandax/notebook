@@ -8,8 +8,7 @@ export function Settings() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
-    const handleSignOut = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSignOut = async () => {
         setLoading(true);
         await signOut();
         setLoading(false);
@@ -18,14 +17,18 @@ export function Settings() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
-            <div className="w-full max-w-sm bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md">
+        <div className="p-6">
+            <div className="w-full max-w-2xl bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md">
                 <h1 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
                     Configuración
                 </h1>
-                <Button onClick={handleSignOut} disabled={loading}>
-                    {loading ? 'Cerrando...' : 'Cerrar sesión'}
-                </Button>
+
+                <div className="flex flex-col gap-4">
+                    {/* Add other settings controls here */}
+                    <Button onClick={handleSignOut} disabled={loading}>
+                        {loading ? 'Cerrando...' : 'Cerrar sesión'}
+                    </Button>
+                </div>
             </div>
         </div>
     );
