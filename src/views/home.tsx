@@ -15,7 +15,7 @@ export function Home() {
     }
 
     return (
-        <div className="flex h-screen overflow-hidden">
+        <div className="flex overflow-hidden">
             <main className="flex-1 overflow-y-auto bg-gray-50 p-6">
                 {!session ? (
                     <div className="flex flex-col items-center justify-center h-full">
@@ -34,7 +34,7 @@ export function Home() {
                         <p className="text-gray-700">
                             Aquí irá el contenido principal de la app.
                         </p>
-                        <div className="h-[2000px]" />
+                        <div className="h-[2000px] bg-amber-300" />
                     </>
                 )}
             </main>

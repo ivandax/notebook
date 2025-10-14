@@ -8,6 +8,7 @@ import { SignIn } from './signin';
 import { Settings } from './settings';
 import { AppLayout } from './appLayout';
 import { RequestResetPassword } from './request-reset-password';
+import { ResetPassword } from './reset-password';
 
 const Root: React.FC = () => {
     return (
@@ -26,6 +27,7 @@ const Root: React.FC = () => {
                     path="/request-reset-password"
                     element={<RequestResetPassword />}
                 />
+                <Route path="/reset-password" element={<ResetPassword />} />
             </Routes>
         </BrowserRouter>
     );

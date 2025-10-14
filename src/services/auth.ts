@@ -24,9 +24,13 @@ export async function signOut() {
     return { error };
 }
 
-export async function resetPasswordForEmail(email: string) {
+export async function requestResetPasswordForEmail(email: string) {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: 'http://localhost:5173/reset-password',
     });
     return { error };
+}
+
+export function resetPasswordForEmail(password: string) {
+    return supabase.auth.updateUser({ password });
 }

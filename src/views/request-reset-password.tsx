@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { resetPasswordForEmail } from '@/services/auth';
+import { requestResetPasswordForEmail } from '@/services/auth';
 import { toast } from 'sonner';
 
 export function RequestResetPassword() {
@@ -11,7 +11,7 @@ export function RequestResetPassword() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        const { error } = await resetPasswordForEmail(email);
+        const { error } = await requestResetPasswordForEmail(email);
         if (error) {
             toast.error('Error', {
                 description: 'No se pudo enviar el correo de restablecimiento.',
