@@ -7,6 +7,7 @@ import { SignInEmail } from './signin-email';
 import { SignIn } from './signin';
 import { Settings } from './settings';
 import { AppLayout } from './appLayout';
+import { RequestResetPassword } from './request-reset-password';
 
 const Root: React.FC = () => {
     return (
@@ -21,6 +22,10 @@ const Root: React.FC = () => {
                 <Route path="/sign-up-email" element={<SignUpEmail />} />
                 <Route path="/sign-in" element={<SignIn />} />
                 <Route path="/sign-in-email" element={<SignInEmail />} />
+                <Route
+                    path="/request-reset-password"
+                    element={<RequestResetPassword />}
+                />
             </Routes>
         </BrowserRouter>
     );

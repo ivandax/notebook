@@ -1,32 +1,32 @@
-import { useState } from 'react'
-import { signUpNewUser } from '@/services/auth'
-import { Button } from '@/components/ui/button'
-import { toast } from 'sonner'
-import { Input } from '@/components/ui/input'
+import { useState } from 'react';
+import { signUpNewUser } from '@/services/auth';
+import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
+import { Input } from '@/components/ui/input';
 
 export function SignUpEmail() {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [loading, setLoading] = useState(false)
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        setLoading(true)
+        e.preventDefault();
+        setLoading(true);
 
-        const { error } = await signUpNewUser(email, password)
+        const { error } = await signUpNewUser(email, password);
 
         if (error) {
             toast('Error', {
                 description: 'Error al crear el usuario',
-            })
+            });
         } else {
             toast('Cuenta creada con éxito', {
                 description: 'Revise su correo para verificar la cuenta',
-            })
+            });
         }
 
-        setLoading(false)
-    }
+        setLoading(false);
+    };
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
@@ -55,5 +55,5 @@ export function SignUpEmail() {
                 </form>
             </div>
         </div>
-    )
+    );
 }
