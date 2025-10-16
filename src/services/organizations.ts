@@ -1,17 +1,37 @@
 import type { Organization } from '@/domain/organizations';
 import { supabase } from '@/supabaseClient';
 
-export const getUserOrganizations = async (userId: string) => {
-  const { data, error } = await supabase
-    .from('organizations')
-    .select(
-      `
-      organization:organizations ( id, name, created_at, updated_at )
-    `
-    )
+export async function getUserOrganizations(userId: string): Promise<Organization[] | null> {
+  // Step 1: get organization ids from membership table
+  const { data: memberships, error: memError } = await supabase
+    .from('organization_members')
+    .select('organization_id')
     .eq('user_id', userId);
 
-  if (error) throw error;
-  const orgs: Organization[] = data?.map((item) => item.organization[0]) || [];
-  return orgs;
-};
+  if (memError) {
+    console.error('Error fetching organization memberships:', memError);
+    return null;
+  }
+
+  const ids: string[] = Array.isArray(memberships)
+    ? memberships
+        .map((r: unknown) => (r && typeof r === 'object' ? (r as Record<string, unknown>)['organization_id'] : null))
+        .filter(Boolean) as string[]
+    : [];
+
+  if (ids.length === 0) return [];
+
+  // Step 2: fetch organizations by ids
+  const { data: orgsData, error: orgsError } = await supabase
+    .from('organizations')
+    .select('id, name, created_at, updated_at')
+    .in('id', ids as unknown as string[]);
+
+  if (orgsError) {
+    console.error('Error fetching organizations:', orgsError);
+    return null;
+  }
+
+  return (orgsData as Organization[]) || [];
+}
+
