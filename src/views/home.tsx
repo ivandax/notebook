@@ -34,7 +34,6 @@ export function Home() {
                         <p className="text-gray-700">
                             Aquí irá el contenido principal de la app.
                         </p>
-                        <div className="h-[2000px] bg-amber-300" />
                     </>
                 )}
             </main>

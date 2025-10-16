@@ -71,3 +71,20 @@ export default defineConfig([
   },
 ])
 ```
+
+## Notes of setup
+
+Installed the CLI
+NODE_OPTIONS=--no-experimental-fetch yarn add supabase --dev
+
+See more: https://supabase.com/docs/guides/local-development?queryGroups=package-manager&package-manager=yarn#quickstart
+
+To develop locally, start Docker desktop first then `yarn supabase start`
+
+Create migration file `yarn supabase migration new init_saas_schema`
+
+Apply migration `yarn supabase db reset`
+
+Linking and pushing changes 
+`yarn supabase link --project-ref synkxqhdhympybroqyyn`
+`yarn supabase db push`
