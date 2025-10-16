@@ -88,3 +88,7 @@ Apply migration `yarn supabase db reset`
 Linking and pushing changes 
 `yarn supabase link --project-ref synkxqhdhympybroqyyn`
 `yarn supabase db push`
+
+Adding more migrations
+
+`yarn supabase migration new add_profile_trigger`
