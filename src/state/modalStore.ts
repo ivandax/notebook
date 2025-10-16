@@ -6,15 +6,15 @@ export type CreateOrganizationModalState = {
   modalName: 'create-organization';
 };
 
-interface SessionStore {
+interface ModalStore {
   modal: CreateOrganizationModalState | null;
 }
 
-export const useSessionStore = create<SessionStore>(() => ({
+export const useModalStore = create<ModalStore>(() => ({
   modal: null,
 }));
 
 export const setModalState = (modal: CreateOrganizationModalState | null) => {
-  const set = useSessionStore.setState;
+  const set = useModalStore.setState;
   set({ modal });
 };
