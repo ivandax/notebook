@@ -5,11 +5,15 @@ import {
   setSession,
   setUserProfile,
   setUserOrganizations,
+  useSessionStore,
 } from '@/state/sessionStore';
 import { getUserProfile } from '@/services/user_profiles';
 import { getUserOrganizations } from '@/services/organizations';
 
 export function useSupabaseClient() {
+  const userProfile = useSessionStore((state) => state.userProfile);
+  const organizations = useSessionStore((state) => state.organizations);
+
   useEffect(() => {
     setIsLoadingSession(true);
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -37,13 +41,18 @@ export function useSupabaseClient() {
       setSession(session);
       // When auth state changes, fetch profile + organizations if available
       if (session?.user.id) {
-        getUserProfile(session.user.id).then((profile) => {
-          if (profile) setUserProfile(profile);
-        });
-        getUserOrganizations(session.user.id).then((orgs) => {
-          console.log(orgs);
-          setUserOrganizations(orgs);
-        });
+        console.log(userProfile, organizations);
+        if (!userProfile) {
+          getUserProfile(session.user.id).then((profile) => {
+            if (profile) setUserProfile(profile);
+          });
+        }
+        if (!organizations) {
+          getUserOrganizations(session.user.id).then((orgs) => {
+            console.log(orgs);
+            setUserOrganizations(orgs);
+          });
+        }
       } else {
         setUserProfile(null);
         setUserOrganizations(null);

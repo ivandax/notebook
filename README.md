@@ -92,3 +92,8 @@ Linking and pushing changes
 Adding more migrations
 
 `yarn supabase migration new add_profile_trigger`
+
+## PENDING
+
+ - Fields for organization-slug and is_main (boolean)
+ - Fields for profile: organization_role (string)

@@ -53,27 +53,6 @@ export function Home() {
               </div>
             ) : (
               <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-2xl font-semibold mb-2">
-                      Bienvenido, {session.user.email}
-                    </h2>
-                    <p className="text-gray-600">
-                      Tienes {organizations?.length}
-                      {organizations?.length === 1
-                        ? 'organización'
-                        : 'organizaciones'}
-                    </p>
-                  </div>
-                  <Button
-                    onClick={() =>
-                      setModalState({ modalName: 'create-organization' })
-                    }
-                  >
-                    Nueva organización
-                  </Button>
-                </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {organizations?.map((org) => (
                     <div
