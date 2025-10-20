@@ -6,7 +6,7 @@ import { SignUpEmail } from './signup-email';
 import { SignInEmail } from './signin-email';
 import { SignIn } from './signin';
 import { Settings } from './settings';
-import { AppLayout } from './appLayout';
+import { AppLayout } from './app-layout';
 import { RequestResetPassword } from './request-reset-password';
 import { ResetPassword } from './reset-password';
 

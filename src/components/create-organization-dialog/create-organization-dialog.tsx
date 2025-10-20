@@ -9,7 +9,10 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { createOrganization } from '@/services/organizations';
 import { setModalState } from '@/state/modalStore';
+import { useSessionStore } from '@/state/sessionStore';
+import { textToSlug } from '@/utils/text';
 import { useState } from 'react';
 
 interface CreateOrganizationDialogProps {
@@ -19,7 +22,30 @@ interface CreateOrganizationDialogProps {
 export function CreateOrganizationDialog({
   isModalOpen,
 }: CreateOrganizationDialogProps) {
+  const userProfile = useSessionStore((state) => state.userProfile);
   const [organizationName, setOrganizationName] = useState('');
+
+  const handleCreateOrganization = async () => {
+    if (!userProfile || organizationName.trim() === '') return;
+    // Call the createOrganization function from the organizations service
+    const { data, error } = await createOrganization(
+      {
+        name: organizationName,
+        slug: textToSlug(organizationName),
+        type: 'fisio',
+      },
+      userProfile.id
+    );
+    console.log('created org data:', data);
+
+    if (error) {
+      console.error('Error creating organization:', error);
+      return;
+    }
+
+    setModalState(null);
+    setOrganizationName('');
+  };
   return (
     <Dialog
       open={isModalOpen}
@@ -45,6 +71,7 @@ export function CreateOrganizationDialog({
               value={organizationName}
               onChange={(e) => setOrganizationName(e.target.value)}
             />
+            <p>{textToSlug(organizationName)}</p>
           </div>
         </div>
         <DialogFooter>
@@ -58,7 +85,7 @@ export function CreateOrganizationDialog({
             Cancelar
           </Button>
           <Button
-            onClick={() => void 0}
+            onClick={handleCreateOrganization}
             disabled={!organizationName.trim()}
           >
             Crear organización

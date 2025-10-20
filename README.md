@@ -85,7 +85,9 @@ Create migration file `yarn supabase migration new init_saas_schema`
 
 Apply migration `yarn supabase db reset`
 
-Linking and pushing changes 
+Get the project id from settings page: Project ID
+
+Linking and pushing changes (using project id)
 `yarn supabase link --project-ref synkxqhdhympybroqyyn`
 `yarn supabase db push`
 
