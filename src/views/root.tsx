@@ -10,6 +10,7 @@ import { AppLayout } from './app-layout';
 import { RequestResetPassword } from './request-reset-password';
 import { ResetPassword } from './reset-password';
 import { Organizations } from './organizations';
+import { FisioProfiles } from './fisio-profiles';
 
 const Root: React.FC = () => {
   return (
@@ -22,6 +23,10 @@ const Root: React.FC = () => {
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/organizations" element={<Organizations />} />
+        </Route>
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/fisio-profiles" element={<FisioProfiles />} />
         </Route>
 
         <Route path="/sign-up" element={<SignUp />} />
