@@ -27,7 +27,7 @@ export function CreateOrganizationDialog({
 
   const handleCreateOrganization = async () => {
     if (!userProfile || organizationName.trim() === '') return;
-    // Call the createOrganization function from the organizations service
+
     const { error, data } = await createOrganization(
       {
         name: organizationName,

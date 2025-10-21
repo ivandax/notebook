@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useSessionStore } from '@/state/sessionStore';
 import { getFisioOrganizationClients } from '@/services/fisio-organization-clients';
 import type { FisioOrganizationClient } from '@/domain/fisio-organization-client';
+import { setModalState } from '@/state/modalStore';
 
 export function FisioProfiles() {
   const defaultOrg = useSessionStore((state) => state.defaultOrganization);
@@ -11,17 +12,18 @@ export function FisioProfiles() {
   );
   const [loading, setLoading] = useState(true);
 
+  const fetchClients = async () => {
+    if (!defaultOrg) return;
+    setLoading(true);
+
+    const data = await getFisioOrganizationClients(defaultOrg.id);
+    setClients(data);
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const fetchClients = async () => {
-      if (!defaultOrg) return;
-      setLoading(true);
-
-      const data = await getFisioOrganizationClients(defaultOrg.id);
-      setClients(data);
-      setLoading(false);
-    };
-
     fetchClients();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultOrg]);
 
   if (!defaultOrg) {
@@ -49,7 +51,16 @@ export function FisioProfiles() {
         <h2 className="text-2xl font-semibold">
           Clientes de {defaultOrg.name}
         </h2>
-        <Button onClick={() => void 0}>Añadir cliente</Button>
+        <Button
+          onClick={() =>
+            setModalState({
+              modalName: 'create-fisio-client',
+              onSuccessCallback: fetchClients,
+            })
+          }
+        >
+          Añadir cliente
+        </Button>
       </div>
 
       {!clients || clients.length === 0 ? (
