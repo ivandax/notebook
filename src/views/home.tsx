@@ -1,12 +1,15 @@
 import { Button } from '@/components/ui/button';
-import { setModalState } from '@/state/modalStore';
 import { useSessionStore } from '@/state/sessionStore';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export function Home() {
   const isLoadingSession = useSessionStore((state) => state.isLoadingSession);
   const session = useSessionStore((state) => state.session);
   const organizations = useSessionStore((state) => state.organizations);
+  const defaultOrganization = useSessionStore(
+    (state) => state.defaultOrganization
+  );
+  const navigate = useNavigate();
 
   if (isLoadingSession) {
     return (
@@ -43,32 +46,68 @@ export function Home() {
                   Las organizaciones te permiten colaborar con tu equipo y
                   gestionar proyectos.
                 </p>
-                <Button
-                  onClick={() =>
-                    setModalState({ modalName: 'create-organization' })
-                  }
-                >
-                  Crear organización
+                <Button onClick={() => navigate('/organizations')}>
+                  Ir a organizaciones
                 </Button>
               </div>
-            ) : (
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {organizations?.map((org) => (
-                    <div
-                      key={org.id}
-                      className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow"
-                    >
-                      <h3 className="text-lg font-semibold mb-2">{org.name}</h3>
-                      <p className="text-sm text-gray-500">
-                        Creada el{' '}
-                        {new Date(org.created_at).toLocaleDateString('es-ES')}
+            ) : defaultOrganization ? (
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">
+                    Estás en la organización:
+                  </h3>
+                  <p className="text-lg text-gray-700 font-medium">
+                    {defaultOrganization.name}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                  <div className="p-6 bg-white rounded-2xl shadow-md flex flex-col justify-between">
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2">
+                        Perfiles de clientes
+                      </h4>
+                      <p className="text-gray-600 mb-4 text-sm">
+                        Gestiona y consulta los perfiles de tus pacientes o
+                        clientes.
                       </p>
                     </div>
-                  ))}
+                    <Button onClick={() => navigate('/fisio-profiles')}>
+                      Ir a perfiles
+                    </Button>
+                  </div>
+
+                  <div className="p-6 bg-white rounded-2xl shadow-md flex flex-col justify-between">
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2">
+                        Organización
+                      </h4>
+                      <p className="text-gray-600 mb-4 text-sm">
+                        Administra miembros y configuraciones de la
+                        organización.
+                      </p>
+                    </div>
+                    <Button onClick={() => navigate('/organizations')}>
+                      Ver organización
+                    </Button>
+                  </div>
+
+                  <div className="p-6 bg-white rounded-2xl shadow-md flex flex-col justify-between">
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2">
+                        Configuración
+                      </h4>
+                      <p className="text-gray-600 mb-4 text-sm">
+                        Ajusta tus preferencias personales y de la app.
+                      </p>
+                    </div>
+                    <Button onClick={() => navigate('/settings')}>
+                      Ir a configuración
+                    </Button>
+                  </div>
                 </div>
               </div>
-            )}
+            ) : null}
           </div>
         )}
       </main>

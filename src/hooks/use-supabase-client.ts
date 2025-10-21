@@ -51,7 +51,9 @@ export function useSupabaseClient() {
         }
         if (!organizations) {
           getUserOrganizations(session.user.id).then((orgs) => {
+            if (!orgs) return;
             setUserOrganizations(orgs);
+            setDefaultOrganization(orgs[0]);
           });
         }
       } else {
