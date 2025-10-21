@@ -28,15 +28,15 @@ export function CreateOrganizationDialog({
   const handleCreateOrganization = async () => {
     if (!userProfile || organizationName.trim() === '') return;
     // Call the createOrganization function from the organizations service
-    const { data, error } = await createOrganization(
+    const { error } = await createOrganization(
       {
         name: organizationName,
         slug: textToSlug(organizationName),
         type: 'fisio',
+        created_by: userProfile.id,
       },
       userProfile.id
     );
-    console.log('created org data:', data);
 
     if (error) {
       console.error('Error creating organization:', error);
@@ -71,7 +71,6 @@ export function CreateOrganizationDialog({
               value={organizationName}
               onChange={(e) => setOrganizationName(e.target.value)}
             />
-            <p>{textToSlug(organizationName)}</p>
           </div>
         </div>
         <DialogFooter>

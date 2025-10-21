@@ -41,7 +41,6 @@ export function useSupabaseClient() {
       setSession(session);
       // When auth state changes, fetch profile + organizations if available
       if (session?.user.id) {
-        console.log(userProfile, organizations);
         if (!userProfile) {
           getUserProfile(session.user.id).then((profile) => {
             if (profile) setUserProfile(profile);
@@ -49,7 +48,6 @@ export function useSupabaseClient() {
         }
         if (!organizations) {
           getUserOrganizations(session.user.id).then((orgs) => {
-            console.log(orgs);
             setUserOrganizations(orgs);
           });
         }

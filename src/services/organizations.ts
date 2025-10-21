@@ -56,10 +56,13 @@ export async function createOrganization(
         name: org.name,
         slug: org.slug,
         type: org.type,
+        created_by: userId,
       },
     ])
     .select('*')
     .single();
+
+  console.log('createdOrg', createdOrg);
 
   if (orgError || !createdOrg) {
     console.error('Error creating organization:', orgError);
@@ -81,6 +84,8 @@ export async function createOrganization(
     console.error('Error creating organization membership:', membershipError);
     return { data: null, error: membershipError };
   }
+
+  console.log(createdOrg, membershipError, orgError);
 
   return { data: createdOrg, error: null };
 }
