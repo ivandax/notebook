@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { createOrganization } from '@/services/organizations';
 import { setModalState } from '@/state/modalStore';
-import { useSessionStore } from '@/state/sessionStore';
+import { setDefaultOrganization, useSessionStore } from '@/state/sessionStore';
 import { textToSlug } from '@/utils/text';
 import { useState } from 'react';
 
@@ -28,7 +28,7 @@ export function CreateOrganizationDialog({
   const handleCreateOrganization = async () => {
     if (!userProfile || organizationName.trim() === '') return;
     // Call the createOrganization function from the organizations service
-    const { error } = await createOrganization(
+    const { error, data } = await createOrganization(
       {
         name: organizationName,
         slug: textToSlug(organizationName),
@@ -45,6 +45,7 @@ export function CreateOrganizationDialog({
 
     setModalState(null);
     setOrganizationName('');
+    setDefaultOrganization(data);
   };
   return (
     <Dialog

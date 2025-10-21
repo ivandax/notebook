@@ -2,8 +2,8 @@ import type {
   CreateOrganizationPayload,
   Organization,
 } from '@/domain/organizations';
+import type { Result } from '@/domain/result';
 import { supabase } from '@/supabaseClient';
-import type { PostgrestError } from '@supabase/supabase-js';
 
 export async function getUserOrganizations(
   userId: string
@@ -48,7 +48,7 @@ export async function getUserOrganizations(
 export async function createOrganization(
   org: CreateOrganizationPayload,
   userId: string
-): Promise<{ data: Organization | null; error: PostgrestError | null }> {
+): Promise<Result<Organization>> {
   const { data: createdOrg, error: orgError } = await supabase
     .from('organizations')
     .insert([
@@ -61,8 +61,6 @@ export async function createOrganization(
     ])
     .select('*')
     .single();
-
-  console.log('createdOrg', createdOrg);
 
   if (orgError || !createdOrg) {
     console.error('Error creating organization:', orgError);

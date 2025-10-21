@@ -6,6 +6,7 @@ import {
   setUserProfile,
   setUserOrganizations,
   useSessionStore,
+  setDefaultOrganization,
 } from '@/state/sessionStore';
 import { getUserProfile } from '@/services/user_profiles';
 import { getUserOrganizations } from '@/services/organizations';
@@ -27,7 +28,9 @@ export function useSupabaseClient() {
         });
 
         getUserOrganizations(session.user.id).then((orgs) => {
+          if (!orgs) return;
           setUserOrganizations(orgs);
+          setDefaultOrganization(orgs[0]);
         });
       } else {
         // Clear organizations when there is no session
